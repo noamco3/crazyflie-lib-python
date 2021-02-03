@@ -211,6 +211,7 @@ if __name__ == '__main__':
                     pass
                 with open('log.bin', 'wb') as the_file:
                     the_file.write(mem._data)
+                mem.mem_handler._read_requests.pop(7, None)
                 mem._data = None
                 print("finished")
                 end = time.time()

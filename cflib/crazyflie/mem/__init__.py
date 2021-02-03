@@ -136,9 +136,11 @@ class _ReadRequest:
         self._current_addr += data_len
 
         if self._bytes_left > 0:
-            self._request_new_chunk()
+            #self._request_new_chunk()
             if self.mem.type == MemoryElement.TYPE_MEMORY_USD:
                 logger.info("{} out of {} bytes".format(len(self.data), self.mem.size))
+            else:
+                self._request_new_chunk()
                 
             return False
         else:
@@ -567,10 +569,12 @@ class Memory():
                 #print(rreq._bytes_left)
                 if status == 0:
                     if rreq.add_data(addr, payload[5:]):
-                        self._read_requests.pop(id, None)
+                        if(id != 7):
+                            self._read_requests.pop(id, None)
                         self.mem_read_cb.call(rreq.mem, rreq.addr, rreq.data)
                 else:
-                    logger.debug('Status {}: read failed.'.format(status))
-                    self._read_requests.pop(id, None)
+                    logger.info('Status {}: read failed.'.format(status))
+                    if(id != 7):
+                        self._read_requests.pop(id, None)
                     self.mem_read_failed_cb.call(
                         rreq.mem, rreq.addr, rreq.data)
