@@ -133,7 +133,7 @@ def choose(items, title_text, question_text):
 
     for i, item in enumerate(items, start=1):
         print('%d) %s' % (i, item))
-        print('%d) Abort' % (i + 1))
+    print('%d) Abort' % (i + 1))
 
     selected = input(question_text)
     try:
