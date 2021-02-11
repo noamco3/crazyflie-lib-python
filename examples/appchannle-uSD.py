@@ -177,6 +177,7 @@ class AppchannelTest:
             if(addr != len(self._data)):    #if not on the same adderss as crazyflie (meaning some data was missed along te way)
                 s_data = struct.pack("<BI", 2, len(self._data)) #send ack type 2. meaning not all data recived. addr represents the address the data was first lost on. the next data batch will start from there.
                 self._cf.appchannel.send_packet(s_data)
+                print("requested", len(self._data))
             else:                           #if data recived properly
                 print("{} / {}".format(len(self._data), self._data_len)) #print progress
                 if(self._data_len == len(self._data)): #if all reached the end of the file (all total data recived)
